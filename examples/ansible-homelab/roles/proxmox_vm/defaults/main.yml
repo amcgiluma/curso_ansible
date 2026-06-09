@@ -1,0 +1,8 @@
+---
+proxmox_validate_certs: false
+proxmox_vm_cores: 2
+proxmox_vm_memory: 2048
+proxmox_vm_disk: "20G"
+proxmox_vm_ciuser: "ubuntu"
+proxmox_vm_ipconfig: "ip=dhcp"
+proxmox_vm_timeout: 300

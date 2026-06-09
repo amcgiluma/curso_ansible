@@ -1,0 +1,6 @@
+{
+  "slug": "variables-templates-handlers",
+  "title": "Variables, templates y handlers",
+  "order": 4,
+  "summary": "Parametrizar playbooks, generar ficheros y reiniciar servicios solo cuando toca."
+}

@@ -1,0 +1,6 @@
+{
+  "slug": "inventarios-ad-hoc",
+  "title": "Inventarios y comandos ad-hoc",
+  "order": 2,
+  "summary": "Declarar hosts, grupos y ejecutar comprobaciones rápidas con Ansible."
+}

@@ -1,0 +1,6 @@
+{
+  "slug": "proxmox-cloud-init",
+  "title": "Proxmox API y cloud-init",
+  "order": 7,
+  "summary": "Preparar tokens, colecciones y clonación de VMs desde plantillas cloud-init."
+}

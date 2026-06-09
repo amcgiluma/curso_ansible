@@ -1,0 +1,9 @@
+---
+- name: Instalar Docker en hosts Linux
+  hosts: docker_hosts
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: docker
+      tags: ["docker"]

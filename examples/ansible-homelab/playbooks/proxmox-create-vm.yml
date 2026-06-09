@@ -1,0 +1,9 @@
+---
+- name: Crear VM cloud-init en Proxmox
+  hosts: localhost
+  gather_facts: false
+  connection: local
+
+  roles:
+    - role: proxmox_vm
+      tags: ["proxmox"]

@@ -1,0 +1,6 @@
+{
+  "slug": "proyecto-final",
+  "title": "Proyecto final",
+  "order": 8,
+  "summary": "Crear una VM en Proxmox, esperar SSH, instalar Docker y dejarla lista para homelab."
+}

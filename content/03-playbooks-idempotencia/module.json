@@ -1,0 +1,6 @@
+{
+  "slug": "playbooks-idempotencia",
+  "title": "Playbooks e idempotencia",
+  "order": 3,
+  "summary": "Pasar de comandos sueltos a automatización repetible con YAML y módulos."
+}

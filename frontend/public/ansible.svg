@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Curso de Ansible">
+  <rect width="64" height="64" rx="16" fill="#18110b"/>
+  <path d="M32 10 52 54H42.5L38.7 45H24.8L21 54H12L32 10Zm3.7 27.8L31.9 28 28 37.8h7.7Z" fill="#fdba74"/>
+  <path d="M32 10 38.7 45 31.9 28 24.8 45 32 10Z" fill="#f97316" opacity=".72"/>
+</svg>

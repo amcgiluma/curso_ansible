@@ -1,0 +1,6 @@
+{
+  "slug": "linux-cachyos-semaphore",
+  "title": "Linux, CachyOS y Semaphore",
+  "order": 9,
+  "summary": "Instalar Ansible en Linux, compartir playbooks por Git y ejecutarlos desde Semaphore UI."
+}

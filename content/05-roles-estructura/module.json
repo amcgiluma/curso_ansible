@@ -1,0 +1,6 @@
+{
+  "slug": "roles-estructura",
+  "title": "Roles y estructura de proyecto",
+  "order": 5,
+  "summary": "Organizar Ansible para que el proyecto sea mantenible y reutilizable."
+}

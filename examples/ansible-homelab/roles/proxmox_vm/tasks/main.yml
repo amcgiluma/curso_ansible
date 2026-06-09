@@ -1,0 +1,48 @@
+---
+- name: Validar variables obligatorias de Proxmox
+  ansible.builtin.assert:
+    that:
+      - proxmox_api_host is defined
+      - proxmox_api_user is defined
+      - proxmox_api_token_id is defined
+      - proxmox_api_token_secret is defined
+      - proxmox_node is defined
+      - proxmox_template is defined
+      - proxmox_vm_id is defined
+      - proxmox_vm_name is defined
+    fail_msg: "Faltan variables de Proxmox. Revisa group_vars/all.yml."
+
+- name: Clonar VM desde template cloud-init
+  community.general.proxmox_kvm:
+    api_host: "{{ proxmox_api_host }}"
+    api_user: "{{ proxmox_api_user }}"
+    api_token_id: "{{ proxmox_api_token_id }}"
+    api_token_secret: "{{ proxmox_api_token_secret }}"
+    validate_certs: "{{ proxmox_validate_certs }}"
+    node: "{{ proxmox_node }}"
+    clone: "{{ proxmox_template }}"
+    vmid: "{{ proxmox_vm_id }}"
+    name: "{{ proxmox_vm_name }}"
+    full: true
+    storage: "{{ proxmox_storage }}"
+    cores: "{{ proxmox_vm_cores }}"
+    memory: "{{ proxmox_vm_memory }}"
+    net:
+      net0: "virtio,bridge={{ proxmox_bridge }}"
+    ipconfig:
+      ipconfig0: "{{ proxmox_vm_ipconfig }}"
+    ciuser: "{{ proxmox_vm_ciuser }}"
+    sshkeys: "{{ proxmox_vm_ssh_public_key }}"
+    timeout: "{{ proxmox_vm_timeout }}"
+    state: present
+
+- name: Arrancar VM
+  community.general.proxmox_kvm:
+    api_host: "{{ proxmox_api_host }}"
+    api_user: "{{ proxmox_api_user }}"
+    api_token_id: "{{ proxmox_api_token_id }}"
+    api_token_secret: "{{ proxmox_api_token_secret }}"
+    validate_certs: "{{ proxmox_validate_certs }}"
+    node: "{{ proxmox_node }}"
+    vmid: "{{ proxmox_vm_id }}"
+    state: started

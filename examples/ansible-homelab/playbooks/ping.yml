@@ -1,0 +1,8 @@
+---
+- name: Comprobar conectividad Ansible
+  hosts: docker_hosts
+  gather_facts: false
+
+  tasks:
+    - name: Ping Ansible
+      ansible.builtin.ping:

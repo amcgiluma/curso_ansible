@@ -1,0 +1,51 @@
+---
+- name: Crear VM cloud-init en Proxmox
+  hosts: localhost
+  gather_facts: false
+  connection: local
+
+  roles:
+    - role: proxmox_vm
+      tags: ["proxmox"]
+
+  post_tasks:
+    - name: Añadir VM creada al inventario temporal
+      ansible.builtin.add_host:
+        name: "{{ proxmox_vm_name }}"
+        groups: created_docker_hosts
+        ansible_host: "{{ proxmox_vm_ip }}"
+        ansible_user: "{{ proxmox_vm_ciuser }}"
+        ansible_become: true
+
+- name: Esperar SSH en la VM nueva
+  hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Esperar a que SSH responda
+      ansible.builtin.wait_for:
+        host: "{{ proxmox_vm_ip }}"
+        port: 22
+        delay: 10
+        timeout: 300
+        state: started
+
+- name: Instalar Docker en la VM creada
+  hosts: created_docker_hosts
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: docker
+      tags: ["docker"]
+
+  post_tasks:
+    - name: Validar Docker con hello-world
+      ansible.builtin.command: docker run --rm hello-world
+      register: docker_hello_world
+      changed_when: false
+
+    - name: Mostrar resultado de validación
+      ansible.builtin.debug:
+        var: docker_hello_world.stdout_lines

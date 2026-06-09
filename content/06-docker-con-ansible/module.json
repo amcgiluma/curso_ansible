@@ -1,0 +1,6 @@
+{
+  "slug": "docker-con-ansible",
+  "title": "Docker con Ansible",
+  "order": 6,
+  "summary": "Instalar Docker Engine y dejar una VM lista para ejecutar contenedores."
+}

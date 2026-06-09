@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ansible-50: #fff7ed;
+  --color-ansible-100: #ffedd5;
+  --color-ansible-200: #fed7aa;
+  --color-ansible-300: #fdba74;
+  --color-ansible-400: #fb923c;
+  --color-ansible-500: #f97316;
+  --color-ansible-600: #ea580c;
+  --color-ansible-700: #c2410c;
+  --color-ansible-800: #9a3412;
+  --color-ansible-900: #7c2d12;
+
+  --color-ink-900: #18110b;
+  --color-ink-800: #23170e;
+  --color-ink-700: #332113;
+  --color-ink-600: #4a2f1a;
+
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(249, 115, 22, 0.24), transparent),
+    radial-gradient(900px 500px at -10% 10%, rgba(124, 45, 18, 0.34), transparent),
+    var(--color-ink-900);
+  color: #fff3e8;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-ink-600) transparent;
+}
+
+/* ---- Prose (markdown) styles ---- */
+.prose-ansible {
+  line-height: 1.7;
+  color: #ead8c7;
+}
+.prose-ansible h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+.prose-ansible h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 2rem 0 0.75rem;
+  color: #fff7ed;
+  border-bottom: 1px solid var(--color-ink-600);
+  padding-bottom: 0.4rem;
+}
+.prose-ansible h3 {
+  font-size: 1.12rem;
+  font-weight: 700;
+  margin: 1.5rem 0 0.5rem;
+  color: #ffedd5;
+}
+.prose-ansible p {
+  margin: 0.75rem 0;
+}
+.prose-ansible ul,
+.prose-ansible ol {
+  margin: 0.75rem 0;
+  padding-left: 1.4rem;
+}
+.prose-ansible li {
+  margin: 0.3rem 0;
+}
+.prose-ansible a {
+  color: var(--color-ansible-300);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-ansible strong {
+  color: #ffffff;
+}
+.prose-ansible blockquote {
+  border-left: 3px solid var(--color-ansible-500);
+  background: rgba(249, 115, 22, 0.1);
+  margin: 1rem 0;
+  padding: 0.6rem 1rem;
+  border-radius: 0 8px 8px 0;
+  color: #f4dfc9;
+}
+.prose-ansible code:not(pre code) {
+  background: var(--color-ink-700);
+  border: 1px solid var(--color-ink-600);
+  padding: 0.12rem 0.4rem;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  color: #ffd9a8;
+}
+.prose-ansible table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+.prose-ansible th,
+.prose-ansible td {
+  border: 1px solid var(--color-ink-600);
+  padding: 0.5rem 0.7rem;
+  text-align: left;
+}
+.prose-ansible th {
+  background: var(--color-ink-700);
+  color: #fff;
+}
+.prose-ansible hr {
+  border: none;
+  border-top: 1px solid var(--color-ink-600);
+  margin: 2rem 0;
+}

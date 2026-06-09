@@ -1,0 +1,6 @@
+{
+  "slug": "entorno-ssh",
+  "title": "Entorno, WSL y SSH",
+  "order": 1,
+  "summary": "Preparar WSL Ubuntu como nodo de control y conectar por SSH a tus primeras maquinas."
+}
