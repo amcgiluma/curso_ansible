@@ -125,6 +125,14 @@ npm run build
 
 `frontend/public/content.json` está ignorado por Git.
 
+Configuración recomendada en Vercel:
+
+- Root Directory: raíz del repositorio, no `frontend`.
+- Framework Preset: Other o Vite; el `vercel.json` del repo define los comandos reales.
+- Install Command: `cd frontend && npm ci`.
+- Build Command: `node scripts/build-content.mjs && cd frontend && npm run build`.
+- Output Directory: `frontend/dist`.
+
 ## Stack técnico
 
 - Frontend: React 19, Vite, TypeScript, Tailwind CSS v4.
