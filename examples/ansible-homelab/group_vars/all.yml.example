@@ -3,7 +3,8 @@
 docker_users:
   - ubuntu
 
-# Proxmox API. No versionar este fichero con secretos reales.
+# Proxmox API.
+# Copia este archivo a group_vars/all.yml y no subas el fichero real a Git.
 proxmox_api_host: "192.168.1.10"
 proxmox_api_user: "root@pam"
 proxmox_api_token_id: "ansible"
@@ -16,14 +17,19 @@ proxmox_storage: "local-lvm"
 proxmox_bridge: "vmbr0"
 proxmox_template: "ubuntu-2404-cloudinit-template"
 
-# VM a crear.
+# VM a crear desde la template cloud-init.
 proxmox_vm_id: 9101
 proxmox_vm_name: "vm-docker-01"
 proxmox_vm_cores: 2
 proxmox_vm_memory: 2048
 proxmox_vm_disk: "20G"
 proxmox_vm_ciuser: "ubuntu"
+
+# Usa IP fija para que Ansible pueda esperar SSH y continuar instalando Docker.
 proxmox_vm_ip: "192.168.1.50"
 proxmox_vm_gateway: "192.168.1.1"
 proxmox_vm_ipconfig: "ip=192.168.1.50/24,gw=192.168.1.1"
+
+# Esta clave se lee desde la maquina donde ejecutas Ansible.
+# Si ejecutas desde Semaphore, configura la clave en Key Store.
 proxmox_vm_ssh_public_key: "{{ lookup('file', lookup('env', 'HOME') + '/.ssh/id_ed25519.pub') }}"

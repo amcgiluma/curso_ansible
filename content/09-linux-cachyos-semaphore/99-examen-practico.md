@@ -1,27 +1,31 @@
 ---
-title: "Examen práctico"
+title: "Checkpoint: Ansible operado desde Semaphore"
 slug: "examen-practico"
 order: 99
-summary: "Reto para validar Ansible en CachyOS y ejecutar un playbook desde Semaphore."
+summary: "Validar que puedes ejecutar tus playbooks desde CLI y desde Semaphore."
 ---
 
-# Examen práctico
+# Checkpoint: Ansible operado desde Semaphore
 
-El reto es dejar tu máquina CachyOS lista como nodo de control y lanzar un playbook desde Semaphore usando el repositorio compartido.
+El objetivo de este módulo es que tengas dos formas de operar tu homelab: terminal para construir y depurar, Semaphore para ejecutar tareas repetibles desde navegador.
 
 ## Teoría
 
-Debes demostrar tres cosas:
+Antes de dar por cerrado el módulo, confirma estas relaciones:
 
 | Prueba | Qué confirma |
 | --- | --- |
-| `ansible --version` | Ansible instalado y usable en CachyOS |
-| `git pull --ff-only` | Repo compartido y actualizado |
-| Template en Semaphore | Ejecución reproducible desde navegador |
+| `ansible --version` | Tu nodo de control puede ejecutar Ansible |
+| `git pull --ff-only` | Estás usando el repo correcto y actualizado |
+| `ansible-playbook ping.yml --list-hosts` | El inventario apunta a los hosts esperados |
+| Template `Ping VMs` en Semaphore | La UI puede clonar el repo y ejecutar Ansible |
+| Key Store configurado | Las credenciales no viven dentro del repo |
+
+Semaphore debe ejecutar el mismo playbook que ya entiendes desde CLI. Esa simetría es lo que hace mantenible el sistema.
 
 ## Manos a la obra
 
-Secuencia mínima:
+Primero valida desde terminal:
 
 ```compare
 # CMD
@@ -39,10 +43,25 @@ playbook: playbooks/ping.yml
       vm-docker-01
 ```
 
-En Semaphore, ejecuta una plantilla apuntando a:
+Después crea en Semaphore una task template con:
 
 ```output
-examples/ansible-homelab/playbooks/ping.yml
+Repository: curso-ansible
+Playbook: examples/ansible-homelab/playbooks/ping.yml
+Inventory: homelab
+Key Store: ssh-homelab
+```
+
+Cuando `ping.yml` funcione, añade una segunda plantilla para:
+
+```output
+examples/ansible-homelab/playbooks/install-docker.yml
+```
+
+Y deja la plantilla de Proxmox para el final:
+
+```output
+examples/ansible-homelab/playbooks/provision-docker-vm.yml
 ```
 
 ## Flags y variantes
@@ -50,24 +69,25 @@ examples/ansible-homelab/playbooks/ping.yml
 | Comando u opción | Uso |
 | --- | --- |
 | `--list-hosts` | Validar alcance sin tocar sistemas |
-| `git pull --ff-only` | Actualizar sin merges |
-| `docker compose logs -f semaphore` | Depurar Semaphore |
+| `git pull --ff-only` | Actualizar sin crear merges |
+| `docker compose logs -f semaphore` | Ver errores de Semaphore |
 | Key Store | Guardar claves y tokens fuera del repo |
+| Environment | Pasar variables al playbook desde la UI |
 
 ## Pruébalo tú
 
-1. Instala Ansible en CachyOS.
-2. Clona `curso_ansible`.
-3. Configura un inventario real.
-4. Levanta Semaphore desde `examples/semaphore`.
-5. Crea un proyecto conectado al repo.
-6. Ejecuta `ping.yml` desde la UI.
-7. Guarda una captura o nota con fecha, host afectado y resultado.
+1. Ejecuta `ping.yml --list-hosts` desde CLI.
+2. Ejecuta `ping.yml` desde CLI.
+3. Levanta Semaphore desde `examples/semaphore`.
+4. Crea proyecto, repo, inventario, clave SSH y environment.
+5. Ejecuta `ping.yml` desde Semaphore.
+6. Ejecuta `install-docker.yml` desde Semaphore contra una VM de pruebas.
+7. Documenta qué task templates quedan listas para tu homelab.
 
 ## Errores comunes
 
-- **La CLI funciona pero Semaphore no**: revisa credenciales, ruta del playbook y rama del repo.
-- **El repo clonado en CachyOS no coincide con Semaphore**: ambos deben apuntar al mismo remoto y rama.
-- **El inventario real se queda solo en una máquina**: documenta dónde vive o súbelo cifrado si lo necesitas compartido.
+- **CLI funciona pero Semaphore no**: revisa credenciales, ruta del playbook, rama del repo y colecciones instaladas.
+- **El repo local no coincide con Semaphore**: ambos deben apuntar al mismo remoto y rama.
+- **El inventario real solo vive en una máquina**: decide si lo documentas, lo generas o lo subes cifrado.
 
-> Idea clave: si CachyOS, GitHub y Semaphore ejecutan el mismo `ping.yml`, ya tienes una base compartida para automatizar tu homelab desde varias máquinas.
+> Idea clave: cuando CLI y Semaphore ejecutan el mismo playbook, ya tienes una base práctica para operar el homelab sin depender siempre de la terminal.
