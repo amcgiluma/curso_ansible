@@ -1,6 +1,6 @@
 {
   "slug": "playbooks-idempotencia",
-  "title": "Playbooks e idempotencia",
+  "title": "Playbooks, tasks e idempotencia",
   "order": 3,
-  "summary": "Pasar de comandos sueltos a automatización repetible con YAML y módulos."
+  "summary": "Entender la sintaxis de playbooks y tasks, usar built-ins esenciales y ejecutar automatización repetible."
 }

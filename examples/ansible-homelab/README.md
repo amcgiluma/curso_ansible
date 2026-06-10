@@ -26,6 +26,7 @@ Antes de lanzar playbooks que cambian infraestructura:
 | --- | --- |
 | `playbooks/ping.yml` | Comprueba conectividad Ansible |
 | `playbooks/install-docker.yml` | Instala Docker en `docker_hosts` |
+| `playbooks/task-syntax-lab.yml` | Laboratorio para aprender la sintaxis de tasks, built-ins y ejecucion idempotente |
 | `playbooks/proxmox-create-vm.yml` | Crea una VM cloud-init en Proxmox |
 | `playbooks/provision-docker-vm.yml` | Crea VM, espera SSH e instala Docker |
 

@@ -1,0 +1,74 @@
+---
+- name: Laboratorio de sintaxis de tasks
+  hosts: docker_hosts
+  become: true
+  gather_facts: true
+
+  vars:
+    lab_root: /tmp/ansible-task-lab
+    lab_items:
+      - ansible-loop-a
+      - ansible-loop-b
+
+  tasks:
+    - name: Asegurar directorio de laboratorio
+      ansible.builtin.file:
+        path: "{{ lab_root }}"
+        state: directory
+        mode: "0755"
+      tags: ["files"]
+
+    - name: Crear fichero de ejemplo
+      ansible.builtin.copy:
+        dest: "{{ lab_root }}/info.txt"
+        mode: "0644"
+        content: |
+          modulo=03
+          leccion=task-syntax-lab
+          objetivo=entender tasks
+      tags: ["files"]
+
+    - name: Crear directorios para cada item
+      ansible.builtin.file:
+        path: "{{ lab_root }}/{{ item }}"
+        state: directory
+        mode: "0755"
+      loop: "{{ lab_items }}"
+      tags: ["files", "loop"]
+
+    - name: Leer version de Docker sin marcar cambio
+      ansible.builtin.command: docker --version
+      register: docker_version
+      changed_when: false
+      failed_when: docker_version.rc != 0
+      tags: ["command"]
+
+    - name: Mostrar version detectada
+      ansible.builtin.debug:
+        var: docker_version.stdout
+      when: docker_version.stdout is defined
+      tags: ["command", "debug"]
+
+    - name: Comprobar que el fichero existe
+      ansible.builtin.stat:
+        path: "{{ lab_root }}/info.txt"
+      register: lab_file
+      tags: ["files", "checks"]
+
+    - name: Validar que el fichero se ha creado
+      ansible.builtin.assert:
+        that:
+          - lab_file.stat.exists
+        fail_msg: "El fichero {{ lab_root }}/info.txt no existe"
+        success_msg: "El fichero de laboratorio existe"
+      tags: ["checks"]
+
+    - name: Esperar a que exista el fichero de laboratorio
+      ansible.builtin.stat:
+        path: "{{ lab_root }}/info.txt"
+      register: lab_file_until
+      until: lab_file_until.stat.exists
+      retries: 3
+      delay: 1
+      changed_when: false
+      tags: ["checks", "retry"]
